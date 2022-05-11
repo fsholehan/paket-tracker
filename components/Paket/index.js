@@ -6,7 +6,7 @@ export default function Paket() {
   const [kurir, setKurir] = useState("");
   const [resi, setResi] = useState("");
   const [daftarKurir, setDaftarKurir] = useState([]);
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const getResult = async (e) => {
@@ -38,7 +38,7 @@ export default function Paket() {
   return (
     <div className="container mx-auto mt-5 p-5 md:mt-12  md:p-3">
       <div className=" flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8">
-        <form className="w-full rounded-md border border-gray-700/20 p-3 md:w-1/3">
+        <form className="w-full rounded-md md:w-1/3 md:border md:border-gray-700/20 md:p-3">
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Kurir</span>
@@ -47,7 +47,7 @@ export default function Paket() {
               className="select select-bordered"
               onChange={(e) => setKurir(e.target.value)}
             >
-              <option disabled defaultValue>
+              <option disabled selected>
                 Pilih Ekspedisi
               </option>
               {daftarKurir.map((courier, index) => (
@@ -75,13 +75,14 @@ export default function Paket() {
             </button>
           </div>
         </form>
-        {!result ? (
+        {result === null ? (
           ""
         ) : (
           <div className="flex flex-col md:flex-row md:space-x-8">
             <div className="grid grid-cols-2 gap-3 gap-x-8">
               <div className="col-span-2">
                 <span className="text-sm">Nomor Resi</span>
+
                 <p className="font-bold">{result?.data?.summary.awb}</p>
               </div>
               <div>
@@ -112,25 +113,22 @@ export default function Paket() {
           </div>
         )}
       </div>
-      {!result ? (
-        ""
-      ) : (
-        <div className="mt-10">
-          <ol className="relative border-l border-gray-200 dark:border-gray-700">
-            {result?.data?.history?.map((his, index) => (
-              <li className="mb-10 ml-4" key={index}>
-                <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200 dark:border-gray-900 dark:bg-gray-700" />
-                <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {his.date}
-                </time>
-                <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                  {his.desc}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      )}
+
+      <div className="mt-10">
+        <ol className="relative border-l border-gray-200 dark:border-gray-700">
+          {result?.data?.history?.map((his, index) => (
+            <li className="mb-10 ml-4" key={index}>
+              <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200 dark:border-gray-900 dark:bg-gray-700" />
+              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                {his.date}
+              </time>
+              <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+                {his.desc}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }
