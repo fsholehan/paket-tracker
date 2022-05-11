@@ -7,14 +7,20 @@ export default function Paket() {
   const [resi, setResi] = useState("");
   const [daftarKurir, setDaftarKurir] = useState([]);
   const [result, setResult] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const getResult = async () => {
+  const getResult = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/v1/track?api_key=${process.env.NEXT_PUBLIC_API_KEY}&courier=${kurir}&awb=${resi}`
     );
+    setLoading(false);
     setResult(data);
     console.log(data);
   };
+
+  console.log(loading);
 
   const getDaftarKurir = async () => {
     const { data } = await axios.get(
@@ -26,20 +32,13 @@ export default function Paket() {
   };
   useEffect(() => {
     getDaftarKurir();
-    getResult();
   }, [kurir, resi]);
 
-  const getResi = (e) => {
-    e.preventDefault();
-  };
   console.log(kurir);
   return (
     <div className="container mx-auto mt-5 p-5 md:mt-12  md:p-3">
       <div className=" flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8">
-        <form
-          onSubmit={getResi}
-          className="w-full rounded-md border border-gray-700/20 p-3 md:w-1/3"
-        >
+        <form className="w-full rounded-md border border-gray-700/20 p-3 md:w-1/3">
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Kurir</span>
@@ -48,7 +47,7 @@ export default function Paket() {
               className="select select-bordered"
               onChange={(e) => setKurir(e.target.value)}
             >
-              <option disabled selected>
+              <option disabled defaultValue>
                 Pilih Ekspedisi
               </option>
               {daftarKurir.map((courier, index) => (
@@ -71,10 +70,7 @@ export default function Paket() {
             />
           </div>
           <div className="form-control w-full max-w-xs">
-            <button
-              className="btn btn-primary mt-3 w-full"
-              onClick={(e) => e.preventDefault()}
-            >
+            <button className="btn btn-primary mt-3 w-full" onClick={getResult}>
               Cari
             </button>
           </div>
