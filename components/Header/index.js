@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { NavLink } from "../../helpers/NavLink";
 
 export default function Header() {
   const [dropdown, setDropdown] = useState(false);
@@ -28,15 +29,21 @@ export default function Header() {
             )}
           </button>
         </div>
-        <ul
+        <div
           className={`mt-5 ${
             dropdown ? "flex" : "hidden"
           } flex-col space-y-3 md:mt-0 md:flex md:flex-row md:items-center md:space-y-0 md:space-x-12`}
         >
-          <li className="nav-link text-violet-500">Home</li>
-          <li className="nav-link">Cek Ongkir</li>
-          <li className="nav-link">About</li>
-        </ul>
+          <NavLink href="/" exact className="nav-link">
+            Home
+          </NavLink>
+          <NavLink href="/cek-ongkir" className="nav-link">
+            Cek Ongkir
+          </NavLink>
+          <NavLink href="/about" className="nav-link">
+            About
+          </NavLink>
+        </div>
       </div>
     </header>
   );

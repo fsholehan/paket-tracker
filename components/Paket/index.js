@@ -17,10 +17,10 @@ export default function Paket() {
     );
     setLoading(false);
     setResult(data);
-    console.log(data);
+    // console.log("Result", data);
   };
 
-  console.log(loading);
+  // console.log(loading);
 
   const getDaftarKurir = async () => {
     const { data } = await axios.get(
@@ -34,7 +34,7 @@ export default function Paket() {
     getDaftarKurir();
   }, [kurir, resi]);
 
-  console.log(kurir);
+  // console.log(kurir);
   return (
     <div className="container mx-auto mt-5 p-5 md:mt-12  md:p-3">
       <div className=" flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-8">
