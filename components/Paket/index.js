@@ -1,6 +1,7 @@
 // import result from "../../service/dummy/result";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { addToLocalStorage } from "../../helpers/addToLocalStorage";
 
 export default function Paket() {
   const [kurir, setKurir] = useState("");
@@ -17,6 +18,8 @@ export default function Paket() {
     );
     setLoading(false);
     setResult(data);
+
+    addToLocalStorage("resi", resi);
     // console.log("Result", data);
   };
 
