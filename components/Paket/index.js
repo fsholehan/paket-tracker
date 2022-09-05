@@ -19,7 +19,7 @@ export default function Paket() {
     setLoading(false);
     setResult(data);
 
-    addToLocalStorage("resi", resi);
+    addToLocalStorage("resi", resi, true);
     console.log("Result", data);
   };
 
@@ -128,10 +128,16 @@ export default function Paket() {
                     : "bg-gray-200  dark:border-gray-900"
                 } dark:bg-gray-700`}
               />
-              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+              <time className="mb-1 text-xs font-normal leading-none text-gray-400 dark:text-gray-500">
                 {his.date}
               </time>
-              <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+              <p
+                className={`mb-4 text-sm ${
+                  his === result?.data?.history[0]
+                    ? "font-semibold text-violet-500"
+                    : " text-gray-500 dark:text-gray-400"
+                }`}
+              >
                 {his.desc}
               </p>
             </li>
