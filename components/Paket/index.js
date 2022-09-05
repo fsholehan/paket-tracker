@@ -20,7 +20,7 @@ export default function Paket() {
     setResult(data);
 
     addToLocalStorage("resi", resi);
-    // console.log("Result", data);
+    console.log("Result", data);
   };
 
   // console.log(loading);
@@ -121,7 +121,13 @@ export default function Paket() {
         <ol className="relative border-l border-gray-200 dark:border-gray-700">
           {result?.data?.history?.map((his, index) => (
             <li className="mb-10 ml-4" key={index}>
-              <div className="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200 dark:border-gray-900 dark:bg-gray-700" />
+              <div
+                className={`absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border border-white ${
+                  his === result?.data?.history[0]
+                    ? "bg-violet-500"
+                    : "bg-gray-200  dark:border-gray-900"
+                } dark:bg-gray-700`}
+              />
               <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                 {his.date}
               </time>
